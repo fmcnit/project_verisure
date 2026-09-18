@@ -5,17 +5,17 @@ from accounts.models import User_Groups, User, Group, Group_Permissions
 
 from django.contrib.auth.models import Permission
 
-class EmployeeSerializer(serializers.ModelSerializer):
+class EmployeesSerializer(serializers.ModelSerializer):
     name = serializers.SerializerMethodField()
     email = serializers.SerializerMethodField()
 
     class Meta:
         model = Employee
-        fields = {
+        fields = (
             'id',
             'name',
             'email'
-        }
+        )
     def get_name(self, obj):
         return obj.user.name
     
@@ -23,19 +23,19 @@ class EmployeeSerializer(serializers.ModelSerializer):
         return obj.user.email
     
 
-class EmployeesSerializer(serializers.ModelSerializer):
+class EmployeeSerializer(serializers.ModelSerializer):
     name = serializers.SerializerMethodField()
     email = serializers.SerializerMethodField()
-    group = serializers.SerializerMethodField()
+    groups = serializers.SerializerMethodField()
 
     class Meta:
         model = Employee
-        fields = {
+        fields = (
             'id',
             'name',
             'email',
             'groups',
-        }
+        )
     def get_name(self, obj):
         return obj.user.name
     

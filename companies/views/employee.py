@@ -41,7 +41,7 @@ class Employees(Base):
 
         if isinstance(signup_user, User):
 
-            return Response({'sucess':True}, status=status.HTTP_201_CREATED)
+            return Response({'success':True}, status=status.HTTP_201_CREATED)
         
         return Response(signup_user, status=status.HTTP_400_BAD_REQUEST)
 
@@ -51,9 +51,10 @@ class EmployeeDetail(Base):
     def get(self, request, employee_id):
         employee = self.get_employee(employee_id, request.user.id)
 
-        serializer = EmployeesSerializer(employee)
+        serializer = EmployeeSerializer(employee)
 
         return Response(serializer.data)
+    
     
     def put(self, request, employee_id):
         groups = self.data.get('groups')
@@ -85,7 +86,7 @@ class EmployeeDetail(Base):
 
         return Response({'success': True})
 
-    def get(self, request, employee_id):
+    def delete(self, request, employee_id):
         employee = self.get_employee(employee_id, request.user.id)
 
         check_if_owner = User.objects.filter(id=employee.user.id, is_owner=True).exists()
